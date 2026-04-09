@@ -7,38 +7,57 @@ document.getElementById("dayName").innerText = days[today.getDay()];
 document.getElementById("todayDate").innerText = today.toISOString().split("T")[0];
 
 
-// توليد أرقام 0 → 200
+// توليد أرقام من 1 إلى max
 function numbers(max){
   let opt = "";
-  for(let i=0;i<=max;i++){
+  for(let i=1;i<=max;i++){
     opt+= `<option value="${i}">${i}</option>`;
   }
   return opt;
 }
 
-
-// صف الموظفين
+// إنشاء صف جديد
 function staffRow(){
   return `
-  <tr>
-    <td>
-      <select>
-        <option value="">اختر</option>
-        <option>مشرفة عامة</option>
-        <option>مشرفة عبايات</option>
-        <option>مشرفة جوالات</option>
-        <option>قهوجية / قهوجي</option>
-        <option>مساعد القهوجية</option>
-        <option>صباب / صبابات</option>
-        <option>عاملة نظافة</option>
-        <option>عمال تقديم الخدمة</option>
-      </select>
-    </td>
-    <td>
-      <select>${numbers(200)}</select>
-    </td>
-    <td><input type="text"></td>
-  </tr>`;
+    <tr>
+      <td>
+        <select>
+          <option value="">اختر</option>
+          <option>مشرفة عامة</option>
+          <option>مشرفة عبايات</option>
+          <option>قهوجية / قهوجي</option>
+          <option>مساعدة قهوجية</option>
+          <option>صباب / صبابات</option>
+          <option>عاملة تقديم خدمة / عامل تقديم خدمة</option>
+          <option>عاملة نظافة / عامل نظافة</option>
+        </select>
+      </td>
+
+      <td>
+        <select>
+          ${numbers(50)}
+        </select>
+      </td>
+
+      <td>
+        <input type="text" placeholder="ملاحظات">
+      </td>
+
+      <td>
+        <button onclick="removeRow(this)">❌</button>
+      </td>
+    </tr>
+  `;
+}
+
+// إضافة سطر
+function addRow(){
+  document.getElementById("tableBody").insertAdjacentHTML("beforeend", staffRow());
+}
+
+// حذف سطر
+function removeRow(btn){
+  btn.parentElement.parentElement.remove();
 }
 
 
