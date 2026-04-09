@@ -112,7 +112,11 @@
 
 <button type="button" onclick="addRow()">➕ إضافة سطر</button>
 <h3>الملاحظات</h3>
-<textarea rows="5"></textarea>
+<td>
+  <input type="number" placeholder="السعر" oninput="calculateRow(this)">
+</td>
+
+<td class="rowTotal">0</td>
 
 
 <div class="print-btn-container">
