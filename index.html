@@ -1,80 +1,15 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title> فاتورة حفلة</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+// توليد أرقام من 1 إلى 50
+function numbers(max) {
+  let opt = "";
+  for (let i = 1; i <= max; i++) {
+    opt += `<option value="${i}">${i}</option>`;
+  }
+  return opt;
+}
 
-<div class="container">
-
-<h2>فاتورة حفلة </h2>
-
-<!-- يوم وتاريخ التحرير + القسم + نوع الحفلة -->
-<div class="row">
-  <label>يوم التحرير</label>
-  <span id="dayName" class="span-box"></span>
-
-  <label>تاريخ التحرير</label>
-  <span id="todayDate" class="span-box"></span>
-
-  <label>القسم</label>
-  <select>
-    <option>زاهية</option>
-    <option>هام</option>
-  </select>
-
-  <label>نوع الحفلة</label>
-  <select>
-    <option>رجال</option>
-    <option>نساء</option>
-  </select>
-</div>
-
-<!-- يوم وتاريخ الحفلة -->
-<div class="row">
-  <label>يوم الحفلة</label>
-  <select>
-    <option>الأحد</option>
-    <option>الاثنين</option>
-    <option>الثلاثاء</option>
-    <option>الأربعاء</option>
-    <option>الخميس</option>
-    <option>الجمعة</option>
-    <option>السبت</option>
-  </select>
-
-  <label>تاريخ الحفلة</label>
-  <input type="date">
-</div>
-
-<!-- اسم العميل -->
-<div class="row">
-  <label>اسم العميل</label>
-  <input type="text">
-
-  <label>رقم الجوال</label>
-  <input type="tel">
-</div>
-
-
-
-<!-- عدد الموظفين -->
-<h3>بيانات الفاتورة</h3>
-
-<table id="staffTable">
-  <thead>
-    <tr>
-      <th>الصنف</th>
-      <th>العدد</th>
-     <th>السعر</th>
-<th>الإجمالي</th>
-      <th>حذف</th>
-    </tr>
-  </thead>
-
-  <tbody id="tableBody">
+// إنشاء صف جديد
+function staffRow() {
+  return `
     <tr>
       <td>
         <select>
@@ -90,38 +25,59 @@
       </td>
 
       <td>
-        <select>
-          <!-- أرقام من 1 إلى 50 -->
-          <script>
-            document.write(numbers(50));
-          </script>
+        <select onchange="calculateRow(this)">
+          ${numbers(50)}
         </select>
       </td>
 
       <td>
-  <input type="number" placeholder="السعر" oninput="calculateRow(this)">
-</td>
+        <input type="number" placeholder="السعر" oninput="calculateRow(this)">
+      </td>
 
-<td class="rowTotal">0</td>
+      <td class="rowTotal">0</td>
 
       <td>
-        <button onclick="removeRow(this)">❌</button>
+        <button type="button" onclick="removeRow(this)">✖</button>
       </td>
     </tr>
-  </tbody>
-</table>
+  `;
+}
 
-<br>
+// إضافة سطر
+function addRow() {
+  document
+    .getElementById("tableBody")
+    .insertAdjacentHTML("beforeend", staffRow());
+}
 
-<button type="button" onclick="addRow()">➕ إضافة سطر</button>
+// حذف سطر
+function removeRow(btn) {
+  btn.closest("tr").remove();
+  calculateTotal();
+}
 
+// حساب السطر
+function calculateRow(element) {
+  const row = element.closest("tr");
 
-<div class="print-btn-container">
-  <button onclick="prepareAndPrint()">طباعة النموذج</button>
-</div>
+  const qty = row.querySelectorAll("select")[1].value;
+  const price = row.querySelector('input[type="number"]').value;
 
-</div>
+  const total = (Number(qty) || 0) * (Number(price) || 0);
 
-<script src="script.js"></script>
-</body>
-</html>
+  row.querySelector(".rowTotal").innerText = total;
+
+  calculateTotal();
+}
+
+// حساب المجموع النهائي
+function calculateTotal() {
+  let sum = 0;
+
+  document.querySelectorAll(".rowTotal").forEach(cell => {
+    sum += Number(cell.innerText) || 0;
+  });
+
+  const totalBox = document.getElementById("grandTotal");
+  if (totalBox) totalBox.innerText = sum;
+}
