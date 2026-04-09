@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>فاتورة بيلا لخدمة الضيافة</title>
+  <title>فاتورة حفلة</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #faf7f5;
       margin: 0;
       padding: 20px;
     }
@@ -18,10 +18,12 @@
       background: #fff;
       padding: 24px;
       border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
     }
 
     h2, h3 {
-      background: #e8f3d6;
+      background: #f5e9e2;
+      color: #5c4033;
       padding: 12px 16px;
       border-radius: 6px;
       margin: 18px 0 12px;
@@ -38,6 +40,7 @@
     label {
       font-weight: bold;
       white-space: nowrap;
+      color: #5c4033;
     }
 
     input, select, textarea, button {
@@ -45,7 +48,7 @@
       box-sizing: border-box;
       padding: 10px;
       font-size: 14px;
-      border: 1px solid #cfcfcf;
+      border: 1px solid #d9c8bc;
       border-radius: 6px;
       background: #fff;
     }
@@ -62,14 +65,15 @@
     }
 
     th, td {
-      border: 1px solid #cfcfcf;
+      border: 1px solid #d9c8bc;
       padding: 10px;
       text-align: center;
       vertical-align: middle;
     }
 
     th {
-      background: #fafafa;
+      background: #fbf6f2;
+      color: #5c4033;
     }
 
     .actions {
@@ -82,22 +86,40 @@
     .btn-add {
       width: auto;
       min-width: 150px;
+      background: #a67b5b;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
     .btn-delete {
       width: auto;
       padding: 8px 12px;
       cursor: pointer;
+      background: #5c4033;
+      color: white;
+      border: none;
     }
 
     .total-box {
       margin-top: 14px;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
+      color: #5c4033;
+      background: #f5e9e2;
+      padding: 12px;
+      border-radius: 8px;
     }
 
     .print-btn-container {
       margin-top: 16px;
+    }
+
+    .print-btn-container button {
+      background: #a67b5b;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
     @media (max-width: 900px) {
@@ -109,14 +131,6 @@
     @media (max-width: 600px) {
       .grid {
         grid-template-columns: 1fr;
-      }
-
-      table {
-        font-size: 13px;
-      }
-
-      th, td {
-        padding: 8px;
       }
     }
 
@@ -143,27 +157,27 @@
 </head>
 <body>
   <div class="container">
-    <h2>بيلا لخدمة الضيافة </h2>
+    <h2>فاتورة حفلة</h2>
 
     <div class="grid">
-      <label for="editDay">يوم التحرير</label>
-      <input id="editDay" type="text" placeholder="مثال: الجمعة">
+      <label>يوم التحرير</label>
+      <input type="text" placeholder="مثال: الجمعة">
 
-      <label for="editDate">تاريخ التحرير</label>
-      <input id="editDate" type="date">
+      <label>تاريخ التحرير</label>
+      <input type="date">
 
-      <label for="section">القسم</label>
-      <input id="section" type="text" placeholder="القسم">
+      <label>القسم</label>
+      <input type="text" placeholder="القسم">
 
-      <label for="partyType">نوع الحفلة</label>
-      <select id="partyType">
+      <label>نوع الحفلة</label>
+      <select>
         <option value="">اختر</option>
         <option>رجال</option>
         <option>نساء</option>
       </select>
 
-      <label for="partyDay">يوم الحفلة</label>
-      <select id="partyDay">
+      <label>يوم الحفلة</label>
+      <select>
         <option value="">اختر</option>
         <option>الأحد</option>
         <option>الاثنين</option>
@@ -174,14 +188,14 @@
         <option>السبت</option>
       </select>
 
-      <label for="partyDate">تاريخ الحفلة</label>
-      <input id="partyDate" type="date">
+      <label>تاريخ الحفلة</label>
+      <input type="date">
 
-      <label for="customerName">اسم العميل</label>
-      <input id="customerName" type="text" placeholder="اسم العميل">
+      <label>اسم العميل</label>
+      <input type="text" placeholder="اسم العميل">
 
-      <label for="phone">رقم الجوال</label>
-      <input id="phone" type="tel" placeholder="05xxxxxxxx">
+      <label>رقم الجوال</label>
+      <input type="tel" placeholder="05xxxxxxxx">
     </div>
 
     <h3>بيانات الفاتورة</h3>
@@ -208,12 +222,22 @@
     </div>
 
     <h3>الملاحظات</h3>
-    <textarea id="notes" placeholder="اكتب الملاحظات هنا"></textarea>
+    <textarea placeholder="اكتب الملاحظات هنا"></textarea>
 
     <div class="print-btn-container">
       <button type="button" onclick="window.print()">طباعة النموذج</button>
     </div>
   </div>
+
+  <datalist id="jobOptions">
+    <option value="مشرفة عامة">
+    <option value="مشرفة عبايات">
+    <option value="قهوجية / قهوجي">
+    <option value="مساعدة قهوجية">
+    <option value="صباب / صبابات">
+    <option value="عاملة تقديم خدمة / عامل تقديم خدمة">
+    <option value="عاملة نظافة / عامل نظافة">
+  </datalist>
 
   <script>
     function numbersOptions(max) {
@@ -224,26 +248,11 @@
       return options;
     }
 
-    function jobOptions() {
-      return `
-        <option value="">اختر</option>
-        <option>مشرفة عامة</option>
-        <option>مشرفة عبايات</option>
-        <option>قهوجية / قهوجي</option>
-        <option>مساعدة قهوجية</option>
-        <option>صباب / صبابات</option>
-        <option>عاملة تقديم خدمة / عامل تقديم خدمة</option>
-        <option>عاملة نظافة / عامل نظافة</option>
-      `;
-    }
-
     function rowHtml() {
       return `
         <tr>
           <td>
-           <td>
-  <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
-</td>
+            <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
           </td>
           <td>
             <select onchange="calculateRow(this)">
@@ -262,8 +271,7 @@
     }
 
     function addRow() {
-      const tableBody = document.getElementById("tableBody");
-      tableBody.insertAdjacentHTML("beforeend", rowHtml());
+      document.getElementById("tableBody").insertAdjacentHTML("beforeend", rowHtml());
     }
 
     function removeRow(button) {
@@ -278,9 +286,8 @@
       const row = element.closest("tr");
       if (!row) return;
 
-      const selects = row.querySelectorAll("select");
-      const qty = Number(selects[1]?.value || 0);
-      const price = Number(row.querySelector('input[type="number"]')?.value || 0);
+      const qty = Number(row.querySelector("select").value || 0);
+      const price = Number(row.querySelector('input[type="number"]').value || 0);
       const total = qty * price;
 
       row.querySelector(".rowTotal").textContent = total;
@@ -289,8 +296,7 @@
 
     function calculateGrandTotal() {
       let sum = 0;
-      const totals = document.querySelectorAll(".rowTotal");
-      totals.forEach(cell => {
+      document.querySelectorAll(".rowTotal").forEach(cell => {
         sum += Number(cell.textContent || 0);
       });
       document.getElementById("grandTotal").textContent = sum;
@@ -299,15 +305,6 @@
     window.onload = function () {
       addRow();
     };
- </script>
-<datalist id="jobOptions">
-  <option value="مشرفة عامة">
-  <option value="مشرفة عبايات">
-  <option value="قهوجية / قهوجي">
-  <option value="مساعدة قهوجية">
-  <option value="صباب / صبابات">
-  <option value="عاملة تقديم خدمة / عامل تقديم خدمة">
-  <option value="عاملة نظافة / عامل نظافة">
-</datalist>
+  </script>
 </body>
 </html>
