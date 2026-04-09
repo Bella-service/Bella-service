@@ -7,7 +7,7 @@ document.getElementById("dayName").innerText = days[today.getDay()];
 document.getElementById("todayDate").innerText = today.toISOString().split("T")[0];
 
 
-//50 توليد أرقام من 1 إلى max
+// توليد أرقام من 1 إلى 50
 function numbers(max) {
   let opt = "";
   for (let i = 1; i <= max; i++) {
@@ -16,6 +16,7 @@ function numbers(max) {
   return opt;
 }
 
+// إنشاء صف جديد
 function staffRow() {
   return `
     <tr>
@@ -33,14 +34,16 @@ function staffRow() {
       </td>
 
       <td>
-        <select>
+        <select onchange="calculateRow(this)">
           ${numbers(50)}
         </select>
       </td>
 
       <td>
-        <input type="text" placeholder="ملاحظات">
+        <input type="number" placeholder="السعر" oninput="calculateRow(this)">
       </td>
+
+      <td class="rowTotal">0</td>
 
       <td>
         <button type="button" onclick="removeRow(this)">✖</button>
@@ -49,13 +52,43 @@ function staffRow() {
   `;
 }
 
+// إضافة سطر
 function addRow() {
-  document.getElementById("tableBody")
+  document
+    .getElementById("tableBody")
     .insertAdjacentHTML("beforeend", staffRow());
 }
 
+// حذف سطر
 function removeRow(btn) {
   btn.closest("tr").remove();
+  calculateTotal();
+}
+
+// حساب السطر
+function calculateRow(element) {
+  const row = element.closest("tr");
+
+  const qty = row.querySelectorAll("select")[1].value;
+  const price = row.querySelector('input[type="number"]').value;
+
+  const total = (Number(qty) || 0) * (Number(price) || 0);
+
+  row.querySelector(".rowTotal").innerText = total;
+
+  calculateTotal();
+}
+
+// حساب المجموع النهائي
+function calculateTotal() {
+  let sum = 0;
+
+  document.querySelectorAll(".rowTotal").forEach(cell => {
+    sum += Number(cell.innerText) || 0;
+  });
+
+  const totalBox = document.getElementById("grandTotal");
+  if (totalBox) totalBox.innerText = sum;
 }
 
 // حذف الصفوف الفاضية وقت الطباعة
