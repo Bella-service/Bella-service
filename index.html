@@ -1,310 +1,198 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>فاتورة حفلة</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #faf7f5;
-      margin: 0;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<title>فاتورة</title>
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f7f7f7;
+  padding: 20px;
+}
 
-    h2, h3 {
-      background: #f5e9e2;
-      color: #5c4033;
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin: 18px 0 12px;
-    }
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px 16px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
+h2 {
+  background: #dfeadf;
+  padding: 10px;
+}
 
-    label {
-      font-weight: bold;
-      white-space: nowrap;
-      color: #5c4033;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
 
-    input, select, textarea, button {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #d9c8bc;
-      border-radius: 6px;
-      background: #fff;
-    }
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
 
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
+input, select {
+  width: 100%;
+  padding: 5px;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
+button {
+  padding: 6px 10px;
+  cursor: pointer;
+}
 
-    th, td {
-      border: 1px solid #d9c8bc;
-      padding: 10px;
-      text-align: center;
-      vertical-align: middle;
-    }
+.btn-delete {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+}
 
-    th {
-      background: #fbf6f2;
-      color: #5c4033;
-    }
+.add-btn {
+  margin-top: 10px;
+}
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
+.total-box {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+</style>
 
-    .btn-add {
-      width: auto;
-      min-width: 150px;
-      background: #a67b5b;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-delete {
-      width: auto;
-      padding: 8px 12px;
-      cursor: pointer;
-      background: #5c4033;
-      color: white;
-      border: none;
-    }
-
-    .total-box {
-      margin-top: 14px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #5c4033;
-      background: #f5e9e2;
-      padding: 12px;
-      border-radius: 8px;
-    }
-
-    .print-btn-container {
-      margin-top: 16px;
-    }
-
-    .print-btn-container button {
-      background: #a67b5b;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media print {
-      .btn-add,
-      .btn-delete,
-      .print-btn-container {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-        padding: 0;
-      }
-
-      .container {
-        box-shadow: none;
-        border: none;
-        max-width: 100%;
-        padding: 0;
-      }
-    }
-  </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>فاتورة حفلة</h2>
 
-    <div class="grid">
-      <label>يوم التحرير</label>
-      <input type="text" placeholder="مثال: الجمعة">
+<div class="container">
 
-      <label>تاريخ التحرير</label>
-      <input type="date">
+<h2>بيانات الفاتورة</h2>
 
-      <label>القسم</label>
-      <input type="text" placeholder="القسم">
+<table>
+<thead>
+<tr>
+<th>الصنف</th>
+<th>العدد</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+<th>حذف</th>
+</tr>
+</thead>
 
-      <label>نوع الحفلة</label>
-      <select>
+<tbody id="tableBody">
+</tbody>
+</table>
+
+<button class="add-btn" onclick="addRow()">+ إضافة سطر</button>
+
+<div class="total-box">
+المجموع: <span id="grandTotal">0</span> ريال
+</div>
+
+</div>
+
+<script>
+
+// توليد أرقام 1 إلى 50
+function numbersOptions(max) {
+  let options = "";
+  for (let i = 1; i <= max; i++) {
+    options += `<option value="${i}">${i}</option>`;
+  }
+  return options;
+}
+
+// إنشاء صف
+function rowHtml() {
+  return `
+  <tr>
+
+    <td>
+      <select onchange="copySelectedToCustom(this)">
         <option value="">اختر</option>
-        <option>رجال</option>
-        <option>نساء</option>
+        <option>مشرفة عامة</option>
+        <option>مشرفة عبايات</option>
+        <option>قهوجية / قهوجي</option>
+        <option>مساعدة قهوجية</option>
+        <option>صباب / صبابات</option>
+        <option>عاملة تقديم خدمة / عامل تقديم خدمة</option>
+        <option>عاملة نظافة / عامل نظافة</option>
       </select>
 
-      <label>يوم الحفلة</label>
-      <select>
-        <option value="">اختر</option>
-        <option>الأحد</option>
-        <option>الاثنين</option>
-        <option>الثلاثاء</option>
-        <option>الأربعاء</option>
-        <option>الخميس</option>
-        <option>الجمعة</option>
-        <option>السبت</option>
+      <input type="text" class="customItem" placeholder="أو اكتب الصنف">
+    </td>
+
+    <td>
+      <select onchange="calculateRow(this)">
+        ${numbersOptions(50)}
       </select>
+    </td>
 
-      <label>تاريخ الحفلة</label>
-      <input type="date">
+    <td>
+      <input type="number" min="0" placeholder="السعر" oninput="calculateRow(this)">
+    </td>
 
-      <label>اسم العميل</label>
-      <input type="text" placeholder="اسم العميل">
+    <td class="rowTotal">0</td>
 
-      <label>رقم الجوال</label>
-      <input type="tel" placeholder="05xxxxxxxx">
-    </div>
+    <td>
+      <button class="btn-delete" onclick="removeRow(this)">✖</button>
+    </td>
 
-    <h3>بيانات الفاتورة</h3>
+  </tr>
+  `;
+}
 
-    <table>
-      <thead>
-        <tr>
-          <th>الصنف</th>
-          <th>العدد</th>
-          <th>السعر</th>
-          <th>الإجمالي</th>
-          <th>حذف</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+// نسخ الاختيار للخانة اليدوية
+function copySelectedToCustom(selectEl) {
+  const row = selectEl.closest("tr");
+  const input = row.querySelector(".customItem");
+  input.value = selectEl.value;
+}
 
-    <div class="actions">
-      <button type="button" class="btn-add" onclick="addRow()">+ إضافة سطر</button>
-    </div>
+// إضافة صف
+function addRow() {
+  document.getElementById("tableBody")
+    .insertAdjacentHTML("beforeend", rowHtml());
+}
 
-    <div class="total-box">
-      المجموع: <span id="grandTotal">0</span> ريال
-    </div>
+// حذف صف
+function removeRow(btn) {
+  btn.closest("tr").remove();
+  calculateGrandTotal();
+}
 
-    <h3>الملاحظات</h3>
-    <textarea placeholder="اكتب الملاحظات هنا"></textarea>
+// حساب السطر
+function calculateRow(el) {
+  const row = el.closest("tr");
 
-    <div class="print-btn-container">
-      <button type="button" onclick="window.print()">طباعة النموذج</button>
-    </div>
-  </div>
+  const qty = Number(row.querySelector("select:nth-of-type(2)").value || 0);
+  const price = Number(row.querySelector("input[type='number']").value || 0);
 
-  <datalist id="jobOptions">
-    <option value="مشرفة عامة">
-    <option value="مشرفة عبايات">
-    <option value="قهوجية / قهوجي">
-    <option value="مساعدة قهوجية">
-    <option value="صباب / صبابات">
-    <option value="عاملة تقديم خدمة / عامل تقديم خدمة">
-    <option value="عاملة نظافة / عامل نظافة">
-  </datalist>
+  const total = qty * price;
 
-  <script>
-    function numbersOptions(max) {
-      let options = "";
-      for (let i = 1; i <= max; i++) {
-        options += `<option value="${i}">${i}</option>`;
-      }
-      return options;
-    }
+  row.querySelector(".rowTotal").textContent = total;
 
-    function rowHtml() {
-      return `
-        <tr>
-          <td>
-            <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
-          </td>
-          <td>
-            <select onchange="calculateRow(this)">
-              ${numbersOptions(50)}
-            </select>
-          </td>
-          <td>
-            <input type="number" min="0" placeholder="السعر" oninput="calculateRow(this)">
-          </td>
-          <td class="rowTotal">0</td>
-          <td>
-            <button type="button" class="btn-delete" onclick="removeRow(this)">✖</button>
-          </td>
-        </tr>
-      `;
-    }
+  calculateGrandTotal();
+}
 
-    function addRow() {
-      document.getElementById("tableBody").insertAdjacentHTML("beforeend", rowHtml());
-    }
+// حساب المجموع
+function calculateGrandTotal() {
+  let sum = 0;
 
-    function removeRow(button) {
-      const row = button.closest("tr");
-      if (row) {
-        row.remove();
-        calculateGrandTotal();
-      }
-    }
+  document.querySelectorAll(".rowTotal").forEach(cell => {
+    sum += Number(cell.textContent || 0);
+  });
 
-    function calculateRow(element) {
-      const row = element.closest("tr");
-      if (!row) return;
+  document.getElementById("grandTotal").textContent = sum;
+}
 
-      const qty = Number(row.querySelector("select").value || 0);
-      const price = Number(row.querySelector('input[type="number"]').value || 0);
-      const total = qty * price;
+// أول تحميل
+window.onload = function () {
+  addRow();
+};
 
-      row.querySelector(".rowTotal").textContent = total;
-      calculateGrandTotal();
-    }
+</script>
 
-    function calculateGrandTotal() {
-      let sum = 0;
-      document.querySelectorAll(".rowTotal").forEach(cell => {
-        sum += Number(cell.textContent || 0);
-      });
-      document.getElementById("grandTotal").textContent = sum;
-    }
-
-    window.onload = function () {
-      addRow();
-    };
-  </script>
 </body>
 </html>
