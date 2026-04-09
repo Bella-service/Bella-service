@@ -7,17 +7,16 @@ document.getElementById("dayName").innerText = days[today.getDay()];
 document.getElementById("todayDate").innerText = today.toISOString().split("T")[0];
 
 
-// توليد أرقام من 1 إلى max
-function numbers(max){
+//50 توليد أرقام من 1 إلى max
+function numbers(max) {
   let opt = "";
-  for(let i=1;i<=max;i++){
-    opt+= `<option value="${i}">${i}</option>`;
+  for (let i = 1; i <= max; i++) {
+    opt += `<option value="${i}">${i}</option>`;
   }
   return opt;
 }
 
-// إنشاء صف جديد
-function staffRow(){
+function staffRow() {
   return `
     <tr>
       <td>
@@ -44,43 +43,20 @@ function staffRow(){
       </td>
 
       <td>
-        <button onclick="removeRow(this)">❌</button>
+        <button type="button" onclick="removeRow(this)">✖</button>
       </td>
     </tr>
   `;
 }
 
-// إضافة سطر
-function addRow(){
-  document.getElementById("tableBody").insertAdjacentHTML("beforeend", staffRow());
+function addRow() {
+  document.getElementById("tableBody")
+    .insertAdjacentHTML("beforeend", staffRow());
 }
 
-// حذف سطر
-function removeRow(btn){
-  btn.parentElement.parentElement.remove();
+function removeRow(btn) {
+  btn.closest("tr").remove();
 }
-
-
-// صف الخدمات
-function serviceRow(){
-  return `
-  <tr>
-    <td><input type="text" placeholder="اكتب الصنف"></td>
-    <td>
-      <select>${numbers(200)}</select>
-    </td>
-    <td><input type="text"></td>
-  </tr>`;
-}
-
-
-// إضافة 10 صفوف
-for(let i=0;i<10;i++){
-  staffTable.innerHTML += staffRow();
-  insideTable.innerHTML += serviceRow();
-  outsideTable.innerHTML += serviceRow();
-}
-
 
 // حذف الصفوف الفاضية وقت الطباعة
 function cleanTable(tableId){
