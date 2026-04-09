@@ -1,83 +1,304 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>نموذج بيانات الحفلة</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فاتورة حفلة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    h2, h3 {
+      background: #e8f3d6;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 18px 0 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #cfcfcf;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #cfcfcf;
+      padding: 10px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #fafafa;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-add {
+      width: auto;
+      min-width: 150px;
+    }
+
+    .btn-delete {
+      width: auto;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .total-box {
+      margin-top: 14px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .print-btn-container {
+      margin-top: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+
+    @media print {
+      .btn-add,
+      .btn-delete,
+      .print-btn-container {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h2>فاتورة حفلة</h2>
 
-<div class="container">
+    <div class="grid">
+      <label for="editDay">يوم التحرير</label>
+      <input id="editDay" type="text" placeholder="مثال: الجمعة">
 
-<h2>نموذج بيانات الحفلة</h2>
+      <label for="editDate">تاريخ التحرير</label>
+      <input id="editDate" type="date">
 
-<!-- يوم وتاريخ التحرير + القسم + نوع الحفلة -->
-<div class="row">
-  <label>يوم التحرير</label>
-  <span id="dayName" class="span-box"></span>
+      <label for="section">القسم</label>
+      <input id="section" type="text" placeholder="القسم">
 
-  <label>تاريخ التحرير</label>
-  <span id="todayDate" class="span-box"></span>
+      <label for="partyType">نوع الحفلة</label>
+      <select id="partyType">
+        <option value="">اختر</option>
+        <option>رجال</option>
+        <option>نساء</option>
+      </select>
 
-  <label>القسم</label>
-  <select>
-    <option>زاهية</option>
-    <option>هام</option>
-  </select>
+      <label for="partyDay">يوم الحفلة</label>
+      <select id="partyDay">
+        <option value="">اختر</option>
+        <option>الأحد</option>
+        <option>الاثنين</option>
+        <option>الثلاثاء</option>
+        <option>الأربعاء</option>
+        <option>الخميس</option>
+        <option>الجمعة</option>
+        <option>السبت</option>
+      </select>
 
-  <label>نوع الحفلة</label>
-  <select>
-    <option>رجال</option>
-    <option>نساء</option>
-  </select>
-</div>
+      <label for="partyDate">تاريخ الحفلة</label>
+      <input id="partyDate" type="date">
 
-<!-- يوم وتاريخ الحفلة -->
-<div class="row">
-  <label>يوم الحفلة</label>
-  <select>
-    <option>الأحد</option>
-    <option>الاثنين</option>
-    <option>الثلاثاء</option>
-    <option>الأربعاء</option>
-    <option>الخميس</option>
-    <option>الجمعة</option>
-    <option>السبت</option>
-  </select>
+      <label for="customerName">اسم العميل</label>
+      <input id="customerName" type="text" placeholder="اسم العميل">
 
-  <label>تاريخ الحفلة</label>
-  <input type="date">
-</div>
+      <label for="phone">رقم الجوال</label>
+      <input id="phone" type="tel" placeholder="05xxxxxxxx">
+    </div>
 
-<!-- اسم العميل -->
-<div class="row">
-  <label>اسم العميل</label>
-  <input type="text">
+    <h3>بيانات الفاتورة</h3>
 
-  <label>رقم الجوال</label>
-  <input type="tel">
-</div>
+    <table>
+      <thead>
+        <tr>
+          <th>الصنف</th>
+          <th>العدد</th>
+          <th>السعر</th>
+          <th>الإجمالي</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
 
+    <div class="actions">
+      <button type="button" class="btn-add" onclick="addRow()">+ إضافة سطر</button>
+    </div>
 
+    <div class="total-box">
+      المجموع: <span id="grandTotal">0</span> ريال
+    </div>
 
-<!-- عدد الموظفين -->
-<h3>عدد الموظفين للحفلة</h3>
-<table id="staffTable">
-  <tr>
-    <th>الصنف</th>
-    <th>العدد</th>
-    <th>ملاحظات</th>
-  </tr>
-</table>
+    <h3>الملاحظات</h3>
+    <textarea id="notes" placeholder="اكتب الملاحظات هنا"></textarea>
 
+    <div class="print-btn-container">
+      <button type="button" onclick="window.print()">طباعة النموذج</button>
+    </div>
+  </div>
 
+  <script>
+    function numbersOptions(max) {
+      let options = "";
+      for (let i = 1; i <= max; i++) {
+        options += `<option value="${i}">${i}</option>`;
+      }
+      return options;
+    }
 
-<div class="print-btn-container">
-  <button onclick="prepareAndPrint()">طباعة النموذج</button>
-</div>
+    function jobOptions() {
+      return `
+        <option value="">اختر</option>
+        <option>مشرفة عامة</option>
+        <option>مشرفة عبايات</option>
+        <option>قهوجية / قهوجي</option>
+        <option>مساعدة قهوجية</option>
+        <option>صباب / صبابات</option>
+        <option>عاملة تقديم خدمة / عامل تقديم خدمة</option>
+        <option>عاملة نظافة / عامل نظافة</option>
+      `;
+    }
 
-</div>
+    function rowHtml() {
+      return `
+        <tr>
+          <td>
+            <select>
+              ${jobOptions()}
+            </select>
+          </td>
+          <td>
+            <select onchange="calculateRow(this)">
+              ${numbersOptions(50)}
+            </select>
+          </td>
+          <td>
+            <input type="number" min="0" placeholder="السعر" oninput="calculateRow(this)">
+          </td>
+          <td class="rowTotal">0</td>
+          <td>
+            <button type="button" class="btn-delete" onclick="removeRow(this)">✖</button>
+          </td>
+        </tr>
+      `;
+    }
 
-<script src="script.js"></script>
+    function addRow() {
+      const tableBody = document.getElementById("tableBody");
+      tableBody.insertAdjacentHTML("beforeend", rowHtml());
+    }
+
+    function removeRow(button) {
+      const row = button.closest("tr");
+      if (row) {
+        row.remove();
+        calculateGrandTotal();
+      }
+    }
+
+    function calculateRow(element) {
+      const row = element.closest("tr");
+      if (!row) return;
+
+      const selects = row.querySelectorAll("select");
+      const qty = Number(selects[1]?.value || 0);
+      const price = Number(row.querySelector('input[type="number"]')?.value || 0);
+      const total = qty * price;
+
+      row.querySelector(".rowTotal").textContent = total;
+      calculateGrandTotal();
+    }
+
+    function calculateGrandTotal() {
+      let sum = 0;
+      const totals = document.querySelectorAll(".rowTotal");
+      totals.forEach(cell => {
+        sum += Number(cell.textContent || 0);
+      });
+      document.getElementById("grandTotal").textContent = sum;
+    }
+
+    window.onload = function () {
+      addRow();
+    };
+  </script>
 </body>
 </html>
