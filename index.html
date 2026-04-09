@@ -61,14 +61,42 @@
 
 
 <!-- عدد الموظفين -->
-<h3> بيانات الفاتورة </h3>
+<h3>بيانات الفاتورة</h3>
+
 <table id="staffTable">
-  <tr>
-    <th>الصنف</th>
-    <th>العدد</th>
-    <th>ملاحظات</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>الصنف</th>
+      <th>العدد</th>
+      <th>ملاحظات</th>
+    </tr>
+  </thead>
+
+  <tbody id="tableBody">
+    <tr>
+      <td>
+        <select>
+          <option value="">اختر</option>
+          <option>مشرفة عامة</option>
+          <option>مشرفة عبايات</option>
+          <option>قهوجية / قهوجي</option>
+          <option>مساعدة قهوجية</option>
+          <option>صباب / صبابات</option>
+          <option>عاملة تقديم خدمة / عامل تقديم خدمة</option>
+          <option>عاملة نظافة / عامل نظافة</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" min="1" value="1">
+      </td>
+      <td>
+        <input type="text" placeholder="ملاحظات">
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+<button type="button" onclick="addRow()">+ إضافة سطر</button>
 
 
 <h3>الملاحظات</h3>
