@@ -103,7 +103,7 @@ button{
   }
 .bella-strip {
   width: 100%;
-  height: 250px;
+  height: 120px;
   background: linear-gradient(
     to bottom,
     #EBDEC8 0%,
@@ -111,4 +111,24 @@ button{
     #1C2841 50%,
     #1C2841 100%
   );
+  position: relative;
+  overflow: hidden;
+}
+
+/* اللوقو */
+.bella-strip img {
+  position: absolute;
+  left: 20px;
+  width: 120px;   /* 🔥 هذا اللي يصغره */
+  height: auto;
+}
+
+/* العلوي */
+.bella-strip img:first-child {
+  top: 10px;
+}
+
+/* السفلي */
+.bella-strip img:last-child {
+  bottom: 10px;
 }
