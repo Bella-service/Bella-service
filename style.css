@@ -104,12 +104,11 @@ button{
 .bella-strip {
   width: 100%;
   height: 250px;
-
   background: linear-gradient(
     to bottom,
     #EBDEC8 0%,
     #EBDEC8 50%,
     #1C2841 50%,
     #1C2841 100%
-  )
+  );
 }
