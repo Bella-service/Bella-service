@@ -3,13 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>فاتورة بيلا لخدمات الضيافة </title>
+  <title>فاتورة بيلا لخدمات الضيافة</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #faf7f5;
       margin: 0;
+      padding: 0;
+    }
+
+    .bella-strip {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(
+        to bottom,
+        #EBDEC8 0%,
+        #EBDEC8 50%,
+        #1C2841 50%,
+        #1C2841 100%
+      );
+    }
+
+    .header-text {
       padding: 20px;
+    }
+
+    .header-text h3 {
+      margin: 0;
+      background: transparent;
+      color: #5c4033;
+      padding: 0;
+      border-radius: 0;
     }
 
     .container {
@@ -146,6 +170,10 @@
         padding: 0;
       }
 
+      .bella-strip {
+        height: 100px;
+      }
+
       .container {
         box-shadow: none;
         border: none;
@@ -163,10 +191,9 @@
   </div>
 
   <div class="container">
-
     <div class="grid">
       <label>العنوان</label>
-      <input type="text" placeholder="مثاال:رسال">
+      <input type="text" placeholder="مثال: رسال">
 
       <label>تاريخ التحرير</label>
       <input type="date">
@@ -235,13 +262,13 @@
   </div>
 
   <datalist id="jobOptions">
-    <option value="مشرفة عامة">
-    <option value="مشرفة عبايات">
-    <option value="قهوجية / قهوجي">
-    <option value="مساعدة قهوجية">
-    <option value="صباب / صبابات">
-    <option value="عاملة تقديم خدمة / عامل تقديم خدمة">
-    <option value="عاملة نظافة / عامل نظافة">
+    <option value="مشرفة عامة"></option>
+    <option value="مشرفة عبايات"></option>
+    <option value="قهوجية / قهوجي"></option>
+    <option value="مساعدة قهوجية"></option>
+    <option value="صباب / صبابات"></option>
+    <option value="عاملة تقديم خدمة / عامل تقديم خدمة"></option>
+    <option value="عاملة نظافة / عامل نظافة"></option>
   </datalist>
 
   <script>
@@ -312,5 +339,4 @@
     };
   </script>
 </body>
-</html>
 </html>
