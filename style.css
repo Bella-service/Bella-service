@@ -111,9 +111,9 @@ button{
 
 .header-logo {
   width: 100%;
-  height: 180px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 12px;
+}
 }
 
 .header-text {
