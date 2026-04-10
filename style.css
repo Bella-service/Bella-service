@@ -119,7 +119,7 @@ button{
 .bella-strip img {
   position: absolute;
   left: 20px;
-  width: 120px;   /* 🔥 هذا اللي يصغره */
+  width: 60px !imortant ;   /* 🔥 هذا اللي يصغره */
   height: auto;
 }
 
