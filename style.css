@@ -115,20 +115,17 @@ button{
   overflow: hidden;
 }
 
-/* اللوقو */
-.bella-strip img {
+.bella-logo {
   position: absolute;
   left: 20px;
-  width: 60px !imortant ;   /* 🔥 هذا اللي يصغره */
+  width: 60px;
   height: auto;
 }
 
-/* العلوي */
-.bella-strip img:first-child {
+.top-logo {
   top: 10px;
 }
 
-/* السفلي */
-.bella-strip img:last-child {
+.bottom-logo {
   bottom: 10px;
 }
