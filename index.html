@@ -12,20 +12,25 @@
       padding: 0;
     }
 
-    .bella-strip {
-      width: 100%;
-      height: 140px;
-      background: linear-gradient(
-        to bottom,
-        #EBDEC8 0%,
-        #EBDEC8 50%,
-        #1C2841 50%,
-        #1C2841 100%
-      );
+    .corner-logos {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 999;
+    }
+
+    .corner-logos img {
+      width: 70px;
+      height: auto;
+      display: block;
     }
 
     .header-text {
       padding: 20px;
+      padding-top: 90px;
     }
 
     .header-text h3 {
@@ -156,12 +161,21 @@
       .grid {
         grid-template-columns: 1fr;
       }
+
+      .corner-logos img {
+        width: 55px;
+      }
+
+      .header-text {
+        padding-top: 75px;
+      }
     }
 
     @media print {
       .btn-add,
       .btn-delete,
-      .print-btn-container {
+      .print-btn-container,
+      .corner-logos {
         display: none !important;
       }
 
@@ -170,24 +184,24 @@
         padding: 0;
       }
 
-      .bella-strip {
-        height: 100px;
-      }
-
       .container {
         box-shadow: none;
         border: none;
         max-width: 100%;
         padding: 0;
       }
+
+      .header-text {
+        padding-top: 20px;
+      }
     }
   </style>
 </head>
 <body>
-<div class="bella-strip">
-  <img src="logo-light.png" class="bella-logo top-logo">
-  <img src="logo-dark.png" class="bella-logo bottom-logo">
-</div>
+  <div class="corner-logos">
+    <img src="logo-light.png" alt="">
+    <img src="logo-dark.png" alt="">
+  </div>
 
   <div class="header-text">
     <h3>بيلا لخدمات الضيافة</h3>
