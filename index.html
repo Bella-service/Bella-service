@@ -2,15 +2,26 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1200" />
   <title>فاتورة بيلا لخدمات الضيافة</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #faf7f5;
       margin: 0;
       padding: 0;
+      color: #5c4033;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* ===== الهيدر ===== */
@@ -19,6 +30,7 @@
       width: 100%;
       height: 210px;
       overflow: hidden;
+      margin-bottom: 8px;
     }
 
     .hero-bg {
@@ -27,6 +39,7 @@
       background: #e9dfd2;
       border-bottom-left-radius: 28px;
       border-bottom-right-radius: 28px;
+      overflow: hidden;
     }
 
     .hero-bg::after {
@@ -40,6 +53,7 @@
       border-top-left-radius: 55% 100%;
       border-top-right-radius: 55% 100%;
       transform: rotate(-4deg);
+      transform-origin: center;
     }
 
     .hero-content {
@@ -49,104 +63,175 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-top: 8px;
     }
 
     .hero-logo {
       width: 200px;
+      max-width: 72%;
+      height: auto;
+      display: block;
       background: #e9dfd2;
       padding: 12px 18px;
       border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
     }
 
     .title-under-header {
       text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      margin: 10px 0 20px;
+      font-size: 28px;
+      font-weight: 700;
       color: #5c4033;
+      margin: 10px 12px 18px;
     }
 
+    /* ===== الحاوية ===== */
     .container {
-      max-width: 1100px;
-      margin: auto;
+      width: 1100px;
+      margin: 0 auto 24px;
       background: #fff;
       padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
     }
 
-    h3 {
+    h2, h3 {
       background: #f5e9e2;
-      padding: 12px;
-      border-radius: 6px;
-      margin: 18px 0 12px;
       color: #5c4033;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 18px 0 12px;
+      font-size: 22px;
     }
 
+    /* ===== الفورم ===== */
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px 16px;
+      align-items: center;
+      margin-bottom: 16px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
 
-    label {
-      margin-bottom: 6px;
-      color: #5c4033;
+    .field label {
       font-weight: bold;
+      color: #5c4033;
+      line-height: 1.5;
     }
 
-    input, select, textarea {
-      padding: 10px;
+    input,
+    select,
+    textarea,
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 10px;
+      font-size: 15px;
       border: 1px solid #d9c8bc;
-      border-radius: 6px;
+      border-radius: 8px;
+      background: #fff;
+      color: #5c4033;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9f8b80;
     }
 
     textarea {
+      resize: vertical;
       min-height: 120px;
+    }
+
+    /* ===== الجدول ===== */
+    .table-wrap {
+      width: 100%;
+      overflow: visible;
+      border-radius: 8px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #d9c8bc;
       padding: 10px;
       text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #fbf6f2;
+      color: #5c4033;
+      font-weight: bold;
+    }
+
+    td input,
+    td select,
+    td button {
+      margin: 0;
+      font-size: 14px;
+      padding: 10px 8px;
+    }
+
+    td input[list],
+    td input[type="number"] {
+      min-width: 140px;
+    }
+
+    td select {
+      min-width: 90px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
     }
 
     .btn-add {
+      width: auto;
+      min-width: 150px;
       background: #a67b5b;
       color: white;
-      padding: 10px;
       border: none;
-      margin-top: 10px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     .btn-delete {
+      width: auto;
+      padding: 8px 12px;
+      cursor: pointer;
       background: #5c4033;
       color: white;
       border: none;
-      padding: 6px;
-      cursor: pointer;
+      font-weight: bold;
     }
 
     .total-box {
       margin-top: 14px;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
-      background: #f5e9e2;
-      padding: 10px;
-      border-radius: 6px;
       color: #5c4033;
+      background: #f5e9e2;
+      padding: 12px;
+      border-radius: 8px;
     }
 
     .print-btn-container {
@@ -157,40 +242,75 @@
       background: #a67b5b;
       color: white;
       border: none;
-      padding: 10px;
-      width: 100%;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    /* ===== الجوال ===== */
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
+    /* فقط للأجهزة المتوسطة مثل التابلت */
+    @media (max-width: 1100px) {
+      .container {
+        width: 1050px;
       }
     }
 
-    /* ===== الطباعة (الإصلاح فقط) ===== */
+    /* ===== الطباعة ===== */
     @page {
       size: A4 portrait;
-      margin: 10mm;
+      margin: 8mm;
     }
 
     @media print {
+      html, body {
+        width: 100%;
+        overflow: visible !important;
+        background: #fff !important;
+      }
 
       body {
+        margin: 0 !important;
+        padding: 0 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        zoom: 0.9;
+      }
+
+      .hero {
+        margin-bottom: 6px !important;
+        height: 170px !important;
+        page-break-inside: avoid;
+      }
+
+      .hero-logo {
+        width: 170px !important;
+      }
+
+      .title-under-header {
+        font-size: 24px !important;
+        margin: 6px 0 14px !important;
       }
 
       .container {
         width: 100% !important;
+        max-width: 100% !important;
         margin: 0 !important;
+        padding: 10px !important;
         box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        transform: scale(0.92);
+        transform-origin: top center;
       }
 
-      html, body {
-        overflow: hidden !important;
+      h2, h3 {
+        page-break-after: avoid;
+      }
+
+      table {
+        width: 100% !important;
+        page-break-inside: auto;
+      }
+
+      tr, td, th {
+        page-break-inside: avoid;
       }
 
       .btn-add,
@@ -199,100 +319,184 @@
         display: none !important;
       }
     }
-
   </style>
 </head>
-
 <body>
 
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <img src="logo-light.png" class="hero-logo">
-  </div>
-</header>
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <img src="logo-light.png" alt="Bella Logo" class="hero-logo">
+    </div>
+  </header>
 
-<div class="title-under-header">بيلا لخدمات الضيافة</div>
+  <div class="title-under-header">بيلا لخدمات الضيافة</div>
 
-<div class="container">
+  <div class="container">
+    <div class="grid">
+      <div class="field">
+        <label>العنوان</label>
+        <input type="text" placeholder="مثال: رسال">
+      </div>
 
-  <div class="grid">
-    <div class="field">
-      <label>العنوان</label>
-      <input type="text">
+      <div class="field">
+        <label>تاريخ التحرير</label>
+        <input type="date">
+      </div>
+
+      <div class="field">
+        <label>القسم</label>
+        <input type="text" placeholder="القسم">
+      </div>
+
+      <div class="field">
+        <label>نوع الحفلة</label>
+        <select>
+          <option value="">اختر</option>
+          <option>رجال</option>
+          <option>نساء</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>يوم الحفلة</label>
+        <select>
+          <option value="">اختر</option>
+          <option>الأحد</option>
+          <option>الاثنين</option>
+          <option>الثلاثاء</option>
+          <option>الأربعاء</option>
+          <option>الخميس</option>
+          <option>الجمعة</option>
+          <option>السبت</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>تاريخ الحفلة</label>
+        <input type="date">
+      </div>
+
+      <div class="field">
+        <label>اسم العميل</label>
+        <input type="text" placeholder="اسم العميل">
+      </div>
+
+      <div class="field">
+        <label>رقم الجوال</label>
+        <input type="tel" placeholder="05xxxxxxxx">
+      </div>
     </div>
 
-    <div class="field">
-      <label>تاريخ التحرير</label>
-      <input type="date">
+    <h3>بيانات الفاتورة</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>الصنف</th>
+            <th>العدد</th>
+            <th>السعر</th>
+            <th>الإجمالي</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
 
-    <div class="field">
-      <label>القسم</label>
-      <input type="text">
+    <div class="actions">
+      <button type="button" class="btn-add" onclick="addRow()">+ إضافة سطر</button>
     </div>
 
-    <div class="field">
-      <label>نوع الحفلة</label>
-      <select>
-        <option>اختر</option>
-        <option>رجال</option>
-        <option>نساء</option>
-      </select>
+    <div class="total-box">
+      المجموع: <span id="grandTotal">0</span> ريال
+    </div>
+
+    <h3>الملاحظات</h3>
+    <textarea placeholder="اكتب الملاحظات هنا"></textarea>
+
+    <div class="print-btn-container">
+      <button type="button" onclick="window.print()">طباعة النموذج</button>
     </div>
   </div>
 
-  <h3>بيانات الفاتورة</h3>
+  <datalist id="jobOptions">
+    <option value="مشرفة عامة"></option>
+    <option value="مشرفة عبايات"></option>
+    <option value="قهوجية / قهوجي"></option>
+    <option value="مساعدة قهوجية"></option>
+    <option value="صباب / صبابات"></option>
+    <option value="عاملة تقديم خدمة / عامل تقديم خدمة"></option>
+    <option value="عاملة نظافة / عامل نظافة"></option>
+  </datalist>
 
-  <table>
-    <thead>
-      <tr>
-        <th>الصنف</th>
-        <th>العدد</th>
-        <th>السعر</th>
-        <th>الإجمالي</th>
-        <th>حذف</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+  <script>
+    function numbersOptions(max) {
+      let options = '<option value="">اختر</option>';
+      for (let i = 1; i <= max; i++) {
+        options += `<option value="${i}">${i}</option>`;
+      }
+      return options;
+    }
 
-  <button class="btn-add" onclick="addRow()">+ إضافة</button>
+    function rowHtml() {
+      return `
+        <tr>
+          <td>
+            <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
+          </td>
+          <td>
+            <select onchange="calculateRow(this)">
+              ${numbersOptions(50)}
+            </select>
+          </td>
+          <td>
+            <input type="number" min="0" placeholder="السعر" oninput="calculateRow(this)">
+          </td>
+          <td class="rowTotal">0</td>
+          <td>
+            <button type="button" class="btn-delete" onclick="removeRow(this)">✖</button>
+          </td>
+        </tr>
+      `;
+    }
 
-  <div class="total-box">
-    المجموع: <span id="grandTotal">0</span>
-  </div>
+    function addRow() {
+      document.getElementById("tableBody").insertAdjacentHTML("beforeend", rowHtml());
+    }
 
-  <h3>الملاحظات</h3>
-  <textarea></textarea>
+    function removeRow(button) {
+      const row = button.closest("tr");
+      if (row) {
+        row.remove();
+        calculateGrandTotal();
+      }
+    }
 
-  <div class="print-btn-container">
-    <button onclick="window.print()">طباعة النموذج</button>
-  </div>
+    function calculateRow(element) {
+      const row = element.closest("tr");
+      if (!row) return;
 
-</div>
+      const qty = Number(row.querySelector("select").value || 0);
+      const price = Number(row.querySelector('input[type="number"]').value || 0);
+      const total = qty * price;
 
-<script>
-function addRow(){
-  document.getElementById("tableBody").innerHTML += `
-    <tr>
-      <td><input></td>
-      <td><input type="number" onchange="calc(this)"></td>
-      <td><input type="number" onchange="calc(this)"></td>
-      <td class="total">0</td>
-      <td><button class="btn-delete" onclick="this.closest('tr').remove()">✖</button></td>
-    </tr>`;
-}
+      row.querySelector(".rowTotal").textContent = total;
+      calculateGrandTotal();
+    }
 
-function calc(el){
-  let row = el.closest("tr");
-  let inputs = row.querySelectorAll("input[type=number]");
-  let total = (inputs[0].value || 0) * (inputs[1].value || 0);
-  row.querySelector(".total").innerText = total;
-}
+    function calculateGrandTotal() {
+      let sum = 0;
+      document.querySelectorAll(".rowTotal").forEach(cell => {
+        sum += Number(cell.textContent || 0);
+      });
+      document.getElementById("grandTotal").textContent = sum;
+    }
 
-window.onload = addRow;
-</script>
-
+    window.onload = function () {
+      addRow();
+    };
+  </script>
 </body>
 </html>
