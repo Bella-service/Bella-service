@@ -17,7 +17,7 @@ function numbers(max){
 }
 
 
-// صف الموظفين
+// صف الموظفين (ما لمسناه)
 function staffRow(){
   return `
   <tr>
@@ -42,15 +42,14 @@ function staffRow(){
 }
 
 
-// صف الخدمات
+// صف الخدمات (هذا اللي عدلناه فقط)
 function serviceRow(){
   return `
   <tr>
     <td>
       <div class="item-combo">
-        <input type="text" class="item-input" placeholder="اختر أو اكتب الصنف">
         <select onchange="fillItem(this)">
-          <option value="">⌄</option>
+          <option value=""></option>
           <option value="مشرفة عامة">مشرفة عامة</option>
           <option value="مشرفة عبايات">مشرفة عبايات</option>
           <option value="مشرفة جوالات">مشرفة جوالات</option>
@@ -60,15 +59,21 @@ function serviceRow(){
           <option value="عاملة نظافة">عاملة نظافة</option>
           <option value="عمال تقديم الخدمة">عمال تقديم الخدمة</option>
         </select>
+
+        <input type="text" class="item-input" placeholder="اختر أو اكتب الصنف">
       </div>
     </td>
+
     <td>
       <select>${numbers(200)}</select>
     </td>
+
     <td><input type="text"></td>
   </tr>`;
 }
 
+
+// تعبئة الصنف عند الاختيار
 function fillItem(selectEl){
   const row = selectEl.closest("tr");
   const input = row.querySelector(".item-input");
