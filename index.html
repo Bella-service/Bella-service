@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>فاتورة بيلا لخدمات الضيافة</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,35 +13,62 @@
       padding: 0;
     }
 
-    .corner-logos {
-      position: fixed;
-      top: 10px;
-      left: 10px;
+    /* ===== الهيدر ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 210px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: #e9dfd2;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      bottom: -20px;
+      width: 120%;
+      height: 120px;
+      background: #1f2747;
+      border-top-left-radius: 60% 100%;
+      border-top-right-radius: 60% 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      z-index: 999;
+      align-items: center;
+      justify-content: center;
     }
 
-    .corner-logos img {
-      width: 70px;
-      height: auto;
-      display: block;
+    .hero-logo {
+      width: 190px;
+      background: #e9dfd2;
+      padding: 12px 18px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      animation: none !important;
     }
 
-    .header-text {
-      padding: 20px;
-      padding-top: 90px;
-    }
-
-    .header-text h3 {
-      margin: 0;
-      background: transparent;
+    /* ===== العنوان تحت الهيدر ===== */
+    .title-under-header {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
       color: #5c4033;
-      padding: 0;
-      border-radius: 0;
+      margin: 12px 0 20px;
     }
 
+    /* ===== المحتوى ===== */
     .container {
       max-width: 1100px;
       margin: auto;
@@ -50,7 +78,7 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.06);
     }
 
-    h2, h3 {
+    h3 {
       background: #f5e9e2;
       color: #5c4033;
       padding: 12px 16px;
@@ -68,183 +96,114 @@
 
     label {
       font-weight: bold;
-      white-space: nowrap;
       color: #5c4033;
     }
 
     input, select, textarea, button {
       width: 100%;
-      box-sizing: border-box;
       padding: 10px;
-      font-size: 14px;
       border: 1px solid #d9c8bc;
       border-radius: 6px;
-      background: #fff;
     }
 
     textarea {
-      resize: vertical;
       min-height: 120px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
     }
 
     th, td {
       border: 1px solid #d9c8bc;
       padding: 10px;
       text-align: center;
-      vertical-align: middle;
     }
 
     th {
       background: #fbf6f2;
-      color: #5c4033;
     }
 
     .actions {
-      display: flex;
-      gap: 10px;
       margin-top: 14px;
-      flex-wrap: wrap;
     }
 
     .btn-add {
-      width: auto;
-      min-width: 150px;
       background: #a67b5b;
       color: white;
       border: none;
       cursor: pointer;
+      padding: 10px;
     }
 
     .btn-delete {
-      width: auto;
-      padding: 8px 12px;
-      cursor: pointer;
       background: #5c4033;
       color: white;
       border: none;
+      cursor: pointer;
+      padding: 6px 10px;
     }
 
     .total-box {
       margin-top: 14px;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
-      color: #5c4033;
       background: #f5e9e2;
-      padding: 12px;
+      padding: 10px;
       border-radius: 8px;
-    }
-
-    .print-btn-container {
-      margin-top: 16px;
-    }
-
-    .print-btn-container button {
-      background: #a67b5b;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
     }
 
     @media (max-width: 600px) {
       .grid {
         grid-template-columns: 1fr;
       }
-
-      .corner-logos img {
-        width: 55px;
-      }
-
-      .header-text {
-        padding-top: 75px;
-      }
-    }
-
-    @media print {
-      .btn-add,
-      .btn-delete,
-      .print-btn-container,
-      .corner-logos {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-        padding: 0;
-      }
-
-      .container {
-        box-shadow: none;
-        border: none;
-        max-width: 100%;
-        padding: 0;
-      }
-
-      .header-text {
-        padding-top: 20px;
-      }
     }
   </style>
 </head>
+
 <body>
-  <div class="corner-logos">
-    <img src="logo-light.png" alt="">
-    <img src="logo-dark.png" alt="">
+
+  <!-- الهيدر -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <img src="logo-light.png" class="hero-logo">
+    </div>
+  </header>
+
+  <!-- العنوان -->
+  <div class="title-under-header">
+    بيلا لخدمات الضيافة
   </div>
 
-  <div class="header-text">
-    <h3>بيلا لخدمات الضيافة</h3>
-  </div>
-
+  <!-- المحتوى -->
   <div class="container">
+
     <div class="grid">
       <label>العنوان</label>
-      <input type="text" placeholder="مثال: رسال">
+      <input type="text">
 
       <label>تاريخ التحرير</label>
       <input type="date">
 
       <label>القسم</label>
-      <input type="text" placeholder="القسم">
+      <input type="text">
 
       <label>نوع الحفلة</label>
-      <select>
-        <option value="">اختر</option>
-        <option>رجال</option>
-        <option>نساء</option>
-      </select>
+      <select><option>اختر</option></select>
 
       <label>يوم الحفلة</label>
-      <select>
-        <option value="">اختر</option>
-        <option>الأحد</option>
-        <option>الاثنين</option>
-        <option>الثلاثاء</option>
-        <option>الأربعاء</option>
-        <option>الخميس</option>
-        <option>الجمعة</option>
-        <option>السبت</option>
-      </select>
+      <select><option>اختر</option></select>
 
       <label>تاريخ الحفلة</label>
       <input type="date">
 
       <label>اسم العميل</label>
-      <input type="text" placeholder="اسم العميل">
+      <input type="text">
 
       <label>رقم الجوال</label>
-      <input type="tel" placeholder="05xxxxxxxx">
+      <input type="tel">
     </div>
 
     <h3>بيانات الفاتورة</h3>
@@ -263,7 +222,7 @@
     </table>
 
     <div class="actions">
-      <button type="button" class="btn-add" onclick="addRow()">+ إضافة سطر</button>
+      <button class="btn-add" onclick="addRow()">+ إضافة</button>
     </div>
 
     <div class="total-box">
@@ -271,89 +230,36 @@
     </div>
 
     <h3>الملاحظات</h3>
-    <textarea placeholder="اكتب الملاحظات هنا"></textarea>
+    <textarea></textarea>
 
-    <div class="print-btn-container">
-      <button type="button" onclick="window.print()">طباعة النموذج</button>
-    </div>
   </div>
 
-  <datalist id="jobOptions">
-    <option value="مشرفة عامة"></option>
-    <option value="مشرفة عبايات"></option>
-    <option value="قهوجية / قهوجي"></option>
-    <option value="مساعدة قهوجية"></option>
-    <option value="صباب / صبابات"></option>
-    <option value="عاملة تقديم خدمة / عامل تقديم خدمة"></option>
-    <option value="عاملة نظافة / عامل نظافة"></option>
-  </datalist>
-
   <script>
-    function numbersOptions(max) {
-      let options = "";
-      for (let i = 1; i <= max; i++) {
-        options += `<option value="${i}">${i}</option>`;
-      }
-      return options;
-    }
-
     function rowHtml() {
       return `
         <tr>
-          <td>
-            <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
-          </td>
-          <td>
-            <select onchange="calculateRow(this)">
-              ${numbersOptions(50)}
-            </select>
-          </td>
-          <td>
-            <input type="number" min="0" placeholder="السعر" oninput="calculateRow(this)">
-          </td>
-          <td class="rowTotal">0</td>
-          <td>
-            <button type="button" class="btn-delete" onclick="removeRow(this)">✖</button>
-          </td>
+          <td><input></td>
+          <td><input type="number" onchange="calc(this)"></td>
+          <td><input type="number" onchange="calc(this)"></td>
+          <td class="total">0</td>
+          <td><button onclick="this.closest('tr').remove()">✖</button></td>
         </tr>
       `;
     }
 
     function addRow() {
-      document.getElementById("tableBody").insertAdjacentHTML("beforeend", rowHtml());
+      document.getElementById("tableBody").innerHTML += rowHtml();
     }
 
-    function removeRow(button) {
-      const row = button.closest("tr");
-      if (row) {
-        row.remove();
-        calculateGrandTotal();
-      }
+    function calc(el) {
+      let row = el.closest("tr");
+      let inputs = row.querySelectorAll("input[type=number]");
+      let total = (inputs[0].value || 0) * (inputs[1].value || 0);
+      row.querySelector(".total").innerText = total;
     }
 
-    function calculateRow(element) {
-      const row = element.closest("tr");
-      if (!row) return;
-
-      const qty = Number(row.querySelector("select").value || 0);
-      const price = Number(row.querySelector('input[type="number"]').value || 0);
-      const total = qty * price;
-
-      row.querySelector(".rowTotal").textContent = total;
-      calculateGrandTotal();
-    }
-
-    function calculateGrandTotal() {
-      let sum = 0;
-      document.querySelectorAll(".rowTotal").forEach(cell => {
-        sum += Number(cell.textContent || 0);
-      });
-      document.getElementById("grandTotal").textContent = sum;
-    }
-
-    window.onload = function () {
-      addRow();
-    };
+    window.onload = addRow;
   </script>
+
 </body>
 </html>
