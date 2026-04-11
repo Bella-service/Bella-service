@@ -6,14 +6,11 @@
   <title>فاتورة بيلا لخدمات الضيافة</title>
 
   <style>
-    * { box-sizing: border-box; }
-
     body {
       font-family: Arial, sans-serif;
       background: #faf7f5;
       margin: 0;
       padding: 0;
-      color: #5c4033;
     }
 
     /* ===== الهيدر ===== */
@@ -67,6 +64,7 @@
       font-size: 26px;
       font-weight: bold;
       margin: 10px 0 20px;
+      color: #5c4033;
     }
 
     .container {
@@ -83,6 +81,7 @@
       padding: 12px;
       border-radius: 6px;
       margin: 18px 0 12px;
+      color: #5c4033;
     }
 
     .grid {
@@ -96,10 +95,20 @@
       flex-direction: column;
     }
 
+    label {
+      margin-bottom: 6px;
+      color: #5c4033;
+      font-weight: bold;
+    }
+
     input, select, textarea {
       padding: 10px;
       border: 1px solid #d9c8bc;
       border-radius: 6px;
+    }
+
+    textarea {
+      min-height: 120px;
     }
 
     table {
@@ -119,6 +128,7 @@
       padding: 10px;
       border: none;
       margin-top: 10px;
+      cursor: pointer;
     }
 
     .btn-delete {
@@ -126,6 +136,7 @@
       color: white;
       border: none;
       padding: 6px;
+      cursor: pointer;
     }
 
     .total-box {
@@ -134,14 +145,31 @@
       font-weight: bold;
       background: #f5e9e2;
       padding: 10px;
+      border-radius: 6px;
+      color: #5c4033;
+    }
+
+    .print-btn-container {
+      margin-top: 16px;
+    }
+
+    .print-btn-container button {
+      background: #a67b5b;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
     }
 
     /* ===== الجوال ===== */
     @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    /* ===== الطباعة ===== */
+    /* ===== الطباعة (الإصلاح فقط) ===== */
     @page {
       size: A4 portrait;
       margin: 10mm;
@@ -152,7 +180,7 @@
       body {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        zoom: 0.85;
+        zoom: 0.9;
       }
 
       .container {
@@ -161,19 +189,17 @@
         box-shadow: none !important;
       }
 
-      .hero {
-        height: 160px;
-      }
-
-      .hero-logo {
-        width: 160px;
+      html, body {
+        overflow: hidden !important;
       }
 
       .btn-add,
-      .btn-delete {
+      .btn-delete,
+      .print-btn-container {
         display: none !important;
       }
     }
+
   </style>
 </head>
 
@@ -191,10 +217,29 @@
 <div class="container">
 
   <div class="grid">
-    <div class="field"><label>العنوان</label><input></div>
-    <div class="field"><label>تاريخ التحرير</label><input type="date"></div>
-    <div class="field"><label>القسم</label><input></div>
-    <div class="field"><label>نوع الحفلة</label><select><option>اختر</option></select></div>
+    <div class="field">
+      <label>العنوان</label>
+      <input type="text">
+    </div>
+
+    <div class="field">
+      <label>تاريخ التحرير</label>
+      <input type="date">
+    </div>
+
+    <div class="field">
+      <label>القسم</label>
+      <input type="text">
+    </div>
+
+    <div class="field">
+      <label>نوع الحفلة</label>
+      <select>
+        <option>اختر</option>
+        <option>رجال</option>
+        <option>نساء</option>
+      </select>
+    </div>
   </div>
 
   <h3>بيانات الفاتورة</h3>
@@ -218,6 +263,13 @@
     المجموع: <span id="grandTotal">0</span>
   </div>
 
+  <h3>الملاحظات</h3>
+  <textarea></textarea>
+
+  <div class="print-btn-container">
+    <button onclick="window.print()">طباعة النموذج</button>
+  </div>
+
 </div>
 
 <script>
@@ -228,7 +280,7 @@ function addRow(){
       <td><input type="number" onchange="calc(this)"></td>
       <td><input type="number" onchange="calc(this)"></td>
       <td class="total">0</td>
-      <td><button onclick="this.closest('tr').remove()">✖</button></td>
+      <td><button class="btn-delete" onclick="this.closest('tr').remove()">✖</button></td>
     </tr>`;
 }
 
