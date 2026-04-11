@@ -136,3 +136,9 @@ button {
     page-break-inside: avoid;
   }
 }
+
+input:disabled {
+  background: #fff;
+  color: #5c4033;
+  opacity: 1;
+}
