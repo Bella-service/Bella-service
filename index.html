@@ -473,16 +473,6 @@
     </div>
   </div>
 
-  <datalist id="jobOptions">
-    <option value="مشرفة عامة"></option>
-    <option value="مشرفة عبايات"></option>
-    <option value="قهوجية / قهوجي"></option>
-    <option value="مساعدة قهوجية"></option>
-    <option value="صباب / صبابات"></option>
-    <option value="عاملة تقديم خدمة / عامل تقديم خدمة"></option>
-    <option value="عاملة نظافة / عامل نظافة"></option>
-  </datalist>
-
   <script>
     function numbersOptions(max) {
       let options = '<option value="">اختر</option>';
@@ -519,7 +509,7 @@
             </div>
           </td>
           <td>
-            <select onchange="calculateRow(this)">
+            <select class="qty-select" onchange="calculateRow(this)">
               ${numbersOptions(50)}
             </select>
           </td>
@@ -550,18 +540,19 @@
       const row = element.closest("tr");
       if (!row) return;
 
-      const qty = Number(row.querySelector("select").value || 0);
+      const qty = Number(row.querySelector(".qty-select").value || 0);
       const price = Number(row.querySelector('input[type="number"]').value || 0);
       const total = qty * price;
 
-      row.querySelector(".rowTotal").textContent = total;
+      row.querySelector(".rowTotal").textContent = isNaN(total) ? 0 : total;
       calculateGrandTotal();
     }
 
     function calculateGrandTotal() {
       let sum = 0;
       document.querySelectorAll(".rowTotal").forEach(cell => {
-        sum += Number(cell.textContent || 0);
+        const val = Number(cell.textContent);
+        if (!isNaN(val)) sum += val;
       });
       document.getElementById("grandTotal").textContent = sum;
     }
