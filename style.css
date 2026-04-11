@@ -98,7 +98,19 @@ button {
   }
 }
 
+@page {
+  size: A4 portrait;
+  margin: 5mm;
+}
+
 @media print {
+  html,
+  body {
+    width: 100%;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
   body,
   .container {
     margin: 0;
@@ -106,10 +118,28 @@ button {
     box-shadow: none;
   }
 
+  body {
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-size: 12px !important;
+  }
+
+  .container {
+    padding: 6px !important;
+    transform: scale(0.84);
+    transform-origin: top center;
+    border-radius: 0 !important;
+  }
+
   h2,
   h3 {
     background: none;
-    padding: 0;
+    padding: 6px 0 !important;
+    margin-top: 8px !important;
+    margin-bottom: 6px !important;
+    font-size: 16px !important;
+    page-break-after: avoid;
   }
 
   input,
@@ -120,6 +150,13 @@ button {
     -moz-appearance: none;
     appearance: none;
     background: none;
+    font-size: 12px !important;
+    padding: 4px 5px !important;
+    min-height: auto !important;
+  }
+
+  textarea {
+    min-height: 70px !important;
   }
 
   button,
@@ -133,7 +170,31 @@ button {
   }
 
   table {
+    page-break-inside: auto;
+    margin-top: 4px !important;
+  }
+
+  th,
+  td {
+    padding: 4px 5px !important;
+    font-size: 11px !important;
     page-break-inside: avoid;
+  }
+
+  .row {
+    gap: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  label {
+    font-size: 12px !important;
+  }
+
+  .item-combo input,
+  .item-combo select {
+    font-size: 11px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
   }
 }
 
