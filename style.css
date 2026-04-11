@@ -143,10 +143,31 @@ input:disabled {
   opacity: 1;
 }
 
-input[list] {
-  background-image: url("data:image/svg+xml;utf8,<svg fill='%235c4033' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: left 10px center;
-  background-size: 16px;
-  padding-left: 30px;
+/* ===== تحسين خانة الصنف ===== */
+.item-combo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.item-combo input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.item-combo select {
+  width: 32px;
+  min-width: 32px;
+  padding: 4px 2px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+td .item-combo {
+  max-width: 100%;
 }
