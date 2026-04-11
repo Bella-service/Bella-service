@@ -497,7 +497,12 @@ window.onload = function () {
   addRow();
 
   const today = new Date().toISOString().split('T')[0];
-  document.querySelector('input[type="date"]').value = today;
+  const dateInput = document.querySelector('input[type="date"]');
+
+  dateInput.value = today;
+
+  // 🔒 قفل التعديل
+  dateInput.setAttribute("readonly", true);
 };
    
   </script>
