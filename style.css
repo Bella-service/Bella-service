@@ -127,7 +127,7 @@ button {
 
   .container {
     padding: 6px !important;
-    transform: scale(0.70);
+    transform: scale(0.50);
     transform-origin: top center;
     border-radius: 0 !important;
   }
