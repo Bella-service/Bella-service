@@ -493,10 +493,13 @@
       });
       document.getElementById("grandTotal").textContent = sum;
     }
+window.onload = function () {
+  addRow();
 
-    window.onload = function () {
-      addRow();
-    };
+  const today = new Date().toISOString().split('T')[0];
+  document.querySelector('input[type="date"]').value = today;
+};
+   
   </script>
 </body>
 </html>
