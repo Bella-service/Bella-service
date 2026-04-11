@@ -188,7 +188,6 @@
       padding: 10px 8px;
     }
 
-    td input[list],
     td input[type="number"] {
       min-width: 140px;
     }
@@ -244,6 +243,59 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+    }
+
+    /* ===== خانة الصنف مع القائمة داخل نفس الخانة ===== */
+    .item-combo {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      border: 1px solid #d9c8bc;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .item-combo input {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+      padding: 10px 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .item-combo input:focus {
+      outline: none;
+    }
+
+    .item-combo select {
+      width: 78px;
+      min-width: 78px;
+      padding: 10px 8px;
+      font-size: 13px;
+      border: none;
+      border-right: 1px solid #d9c8bc;
+      border-radius: 0;
+      background: #fff;
+      color: #5c4033;
+      cursor: pointer;
+      appearance: auto !important;
+      -webkit-appearance: menulist !important;
+      -moz-appearance: menulist !important;
+      text-align: center;
+      box-shadow: none;
+    }
+
+    .item-combo select:focus {
+      outline: none;
+    }
+
+    td .item-combo {
+      max-width: 100%;
     }
 
     /* فقط للأجهزة المتوسطة مثل التابلت */
@@ -440,11 +492,31 @@
       return options;
     }
 
+    function fillItem(selectEl) {
+      const row = selectEl.closest("tr");
+      const input = row.querySelector(".item-input");
+      if (selectEl.value) {
+        input.value = selectEl.value;
+      }
+    }
+
     function rowHtml() {
       return `
         <tr>
           <td>
-            <input list="jobOptions" placeholder="اختر أو اكتب الصنف">
+            <div class="item-combo">
+              <select onchange="fillItem(this)">
+                <option value="">اختر</option>
+                <option value="مشرفة عامة">مشرفة عامة</option>
+                <option value="مشرفة عبايات">مشرفة عبايات</option>
+                <option value="قهوجية / قهوجي">قهوجية / قهوجي</option>
+                <option value="مساعدة قهوجية">مساعدة قهوجية</option>
+                <option value="صباب / صبابات">صباب / صبابات</option>
+                <option value="عاملة تقديم خدمة / عامل تقديم خدمة">عاملة تقديم خدمة / عامل تقديم خدمة</option>
+                <option value="عاملة نظافة / عامل نظافة">عاملة نظافة / عامل نظافة</option>
+              </select>
+              <input type="text" class="item-input" placeholder="اختر أو اكتب الصنف">
+            </div>
           </td>
           <td>
             <select onchange="calculateRow(this)">
@@ -493,26 +565,23 @@
       });
       document.getElementById("grandTotal").textContent = sum;
     }
-window.onload = function () {
-  addRow();
 
-  const today = new Date().toISOString().split('T')[0];
-  const dateInput = document.querySelector('input[type="date"]');
+    window.onload = function () {
+      addRow();
 
-  dateInput.value = today;
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.querySelector('input[type="date"]');
 
-  // قفل الحقل 100%
-  dateInput.disabled = true;
+      dateInput.value = today;
+      dateInput.disabled = true;
 
-  // 🧠 نضيف حقل مخفي يحمل نفس القيمة عشان الطباعة/النموذج
-  const hiddenInput = document.createElement("input");
-  hiddenInput.type = "hidden";
-  hiddenInput.name = "edit_date";
-  hiddenInput.value = today;
+      const hiddenInput = document.createElement("input");
+      hiddenInput.type = "hidden";
+      hiddenInput.name = "edit_date";
+      hiddenInput.value = today;
 
-  dateInput.parentNode.appendChild(hiddenInput);
-};
-   
+      dateInput.parentNode.appendChild(hiddenInput);
+    };
   </script>
 </body>
 </html>
