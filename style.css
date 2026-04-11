@@ -142,3 +142,11 @@ input:disabled {
   color: #5c4033;
   opacity: 1;
 }
+
+input[list] {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%235c4033' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: left 10px center;
+  background-size: 16px;
+  padding-left: 30px;
+}
