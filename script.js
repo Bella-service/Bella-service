@@ -11,13 +11,13 @@ document.getElementById("todayDate").innerText = today.toISOString().split("T")[
 function numbers(max){
   let opt = "";
   for(let i=0;i<=max;i++){
-    opt+= `<option value="${i}">${i}</option>`;
+    opt += `<option value="${i}">${i}</option>`;
   }
   return opt;
 }
 
 
-// صف الموظفين (ما لمسناه)
+// صف الموظفين
 function staffRow(){
   return `
   <tr>
@@ -42,14 +42,14 @@ function staffRow(){
 }
 
 
-// صف الخدمات (هذا اللي عدلناه فقط)
+// صف الخدمات
 function serviceRow(){
   return `
   <tr>
     <td>
       <div class="item-combo">
         <select onchange="fillItem(this)">
-          <option value=""></option>
+          <option value="">اختر</option>
           <option value="مشرفة عامة">مشرفة عامة</option>
           <option value="مشرفة عبايات">مشرفة عبايات</option>
           <option value="مشرفة جوالات">مشرفة جوالات</option>
@@ -59,15 +59,12 @@ function serviceRow(){
           <option value="عاملة نظافة">عاملة نظافة</option>
           <option value="عمال تقديم الخدمة">عمال تقديم الخدمة</option>
         </select>
-
         <input type="text" class="item-input" placeholder="اختر أو اكتب الصنف">
       </div>
     </td>
-
     <td>
       <select>${numbers(200)}</select>
     </td>
-
     <td><input type="text"></td>
   </tr>`;
 }
@@ -98,12 +95,18 @@ function cleanTable(tableId){
   const rows = Array.from(table.rows).slice(1);
 
   rows.forEach(row => {
+    const itemInput = row.cells[0].querySelector(".item-input");
+    const itemSelect = row.cells[0].querySelector("select");
+    const numberField = row.cells[1].querySelector("select");
 
-    let typeField = row.cells[0].querySelector("select, input");
-    let numberField = row.cells[1].querySelector("select");
+    let typeValue = "";
+    if (itemInput) {
+      typeValue = itemInput.value.trim();
+    } else if (itemSelect) {
+      typeValue = itemSelect.value.trim();
+    }
 
-    let typeValue = typeField.value.trim();
-    let numberValue = numberField.value;
+    const numberValue = numberField ? numberField.value : "0";
 
     if (typeValue === "" || numberValue === "0") {
       row.remove();
